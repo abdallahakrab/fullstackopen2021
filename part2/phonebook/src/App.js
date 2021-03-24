@@ -1,18 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContactForm from "./ContactForm";
 import Contacts from "./Contacts";
 import SearchForm from "./SearchForm";
-
+import axios from "axios";
 function App() {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [contacts, setContacts] = useState([
-    { name: "Arto Hellas", number: "040-123456" },
-    { name: "Ada Lovelace", number: "39-44-5323523" },
-    { name: "Dan Abramov", number: "12-43-234345" },
-    { name: "Mary Poppendieck", number: "39-23-6423122" },
-  ]);
+  const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/persons").then((res) => {
+      setContacts(res.data);
+    });
+  }, []);
+
   const onNameChange = (e) => {
     const input = e.target.value;
     setNewName(input);
@@ -39,10 +41,10 @@ function App() {
     setContacts(contacts.concat(contactObject));
     setNewName("");
   };
-
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
+
   return (
     <div>
       <h1>PhoneBook</h1>
