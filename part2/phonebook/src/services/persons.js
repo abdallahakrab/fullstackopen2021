@@ -11,6 +11,11 @@ const removePerson = (contactId) => {
   return request.then((res) => res.data);
 };
 
-const apiFunctions = { addPerson, removePerson };
+const updateNumber = (person) => {
+  const request = axios.put(`${BASEURL}${person.id}`, person);
+  return request.then((res) => res.data);
+};
+
+const apiFunctions = { addPerson, removePerson, updateNumber };
 
 export default apiFunctions;
