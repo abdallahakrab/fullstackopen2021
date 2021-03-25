@@ -30,9 +30,22 @@ function App() {
   };
   const onAdd = (e) => {
     e.preventDefault();
-    // console.log(contacts.find((contact) => contact.name === newContact));
-    if (contacts.find((contact) => contact.name === newName)) {
-      alert(`${newName} already exists`);
+    const contactFound = contacts.find((contact) => contact.name === newName);
+    if (contactFound) {
+      const answer = window.confirm(
+        `${newName} already exists do you want to replace the old number with the new one?`
+      );
+      if (answer) {
+        const newObject = { ...contactFound, number: newNumber };
+        service.updateNumber(newObject).then((person) => {
+          const newList = contacts.map((contact) =>
+            contact.id === person.id ? person : contact
+          );
+          setContacts(newList);
+          setNewName("");
+          setNewNumber("");
+        });
+      }
       return;
     }
 
@@ -46,6 +59,7 @@ function App() {
 
     // setContacts(contacts.concat(contactObject));
     setNewName("");
+    setNewNumber("");
   };
   const onDelete = ({ id, name }) => {
     const answer = window.confirm(` do you really want to delete ${name}?`);
