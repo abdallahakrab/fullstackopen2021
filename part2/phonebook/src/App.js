@@ -35,6 +35,7 @@ function App() {
       alert(`${newName} already exists`);
       return;
     }
+
     const contactObject = {
       name: newName,
       number: newNumber,
@@ -45,6 +46,15 @@ function App() {
 
     // setContacts(contacts.concat(contactObject));
     setNewName("");
+  };
+  const onDelete = ({ id, name }) => {
+    const answer = window.confirm(` do you really want to delete ${name}?`);
+    if (answer) {
+      service.removePerson(id).then((person) => {
+        const newList = contacts.filter((contact) => contact.id !== id);
+        setContacts(newList);
+      });
+    }
   };
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
@@ -66,7 +76,10 @@ function App() {
       />
       {/*  View Numbers */}
       <h3>Numbers</h3>
-      <Contacts contacts={searchTerm ? filteredContacts : contacts} />
+      <Contacts
+        contacts={searchTerm ? filteredContacts : contacts}
+        onDelete={onDelete}
+      />
     </div>
   );
 }

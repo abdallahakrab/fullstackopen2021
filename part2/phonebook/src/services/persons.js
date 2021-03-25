@@ -6,6 +6,11 @@ const addPerson = (person) => {
   return request.then((res) => res.data);
 };
 
-export default {
-  addPerson,
+const removePerson = (contactId) => {
+  const request = axios.delete(`${BASEURL}${contactId}`);
+  return request.then((res) => res.data);
 };
+
+const apiFunctions = { addPerson, removePerson };
+
+export default apiFunctions;
