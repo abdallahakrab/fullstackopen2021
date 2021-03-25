@@ -4,11 +4,14 @@ import Contacts from "./Contacts";
 import SearchForm from "./SearchForm";
 import service from "./services/persons";
 import axios from "axios";
+import Notification from "./Notification";
 function App() {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorColor, setErrorColor] = useState("Green");
 
   useEffect(() => {
     axios.get("http://localhost:3001/persons").then((res) => {
@@ -37,14 +40,30 @@ function App() {
       );
       if (answer) {
         const newObject = { ...contactFound, number: newNumber };
-        service.updateNumber(newObject).then((person) => {
-          const newList = contacts.map((contact) =>
-            contact.id === person.id ? person : contact
-          );
-          setContacts(newList);
-          setNewName("");
-          setNewNumber("");
-        });
+        service
+          .updateNumber(newObject)
+          .then((person) => {
+            const newList = contacts.map((contact) =>
+              contact.id === person.id ? person : contact
+            );
+            setErrorMessage("Number updated");
+            setTimeout(() => setErrorMessage(""), 5000);
+            setContacts(newList);
+            setNewName("");
+            setNewNumber("");
+          })
+          .catch(() => {
+            setErrorMessage(`${newName} is not found`);
+            setErrorColor("Red");
+            setTimeout(() => {
+              setErrorMessage("");
+              setErrorColor("Green");
+            }, 5000);
+            const updatedList = contacts.filter(
+              (contact) => contact.name !== newName
+            );
+            setContacts(updatedList);
+          });
       }
       return;
     }
@@ -60,6 +79,8 @@ function App() {
     // setContacts(contacts.concat(contactObject));
     setNewName("");
     setNewNumber("");
+    setErrorMessage("Contact added");
+    setTimeout(() => setErrorMessage(""), 5000);
   };
   const onDelete = ({ id, name }) => {
     const answer = window.confirm(` do you really want to delete ${name}?`);
@@ -77,6 +98,7 @@ function App() {
   return (
     <div>
       <h1>PhoneBook</h1>
+      <Notification error={errorMessage} errorColor={errorColor} />
       {/* Search */}
       <h1>Search</h1>
       <SearchForm searchTerm={searchTerm} onSearch={onSearch} />
