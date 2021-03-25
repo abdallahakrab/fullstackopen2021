@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ContactForm from "./ContactForm";
 import Contacts from "./Contacts";
 import SearchForm from "./SearchForm";
+import service from "./services/persons";
 import axios from "axios";
 function App() {
   const [newName, setNewName] = useState("");
@@ -38,7 +39,11 @@ function App() {
       name: newName,
       number: newNumber,
     };
-    setContacts(contacts.concat(contactObject));
+    service
+      .addPerson(contactObject)
+      .then((person) => setContacts(contacts.concat(person)));
+
+    // setContacts(contacts.concat(contactObject));
     setNewName("");
   };
   const filteredContacts = contacts.filter((contact) =>
