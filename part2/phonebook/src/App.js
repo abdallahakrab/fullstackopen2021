@@ -14,7 +14,7 @@ function App() {
   const [errorColor, setErrorColor] = useState("Green");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((res) => {
+    axios.get("http://localhost:3001/api/persons").then((res) => {
       setContacts(res.data);
     });
   }, []);
@@ -85,10 +85,18 @@ function App() {
   const onDelete = ({ id, name }) => {
     const answer = window.confirm(` do you really want to delete ${name}?`);
     if (answer) {
-      service.removePerson(id).then((person) => {
-        const newList = contacts.filter((contact) => contact.id !== id);
-        setContacts(newList);
-      });
+      console.log("here");
+      service
+        .removePerson(id)
+        .then(() => {
+          console.log("newlist");
+
+          const newList = contacts.filter((contact) => contact.id !== id);
+          setContacts(newList);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
   };
   const filteredContacts = contacts.filter((contact) =>
