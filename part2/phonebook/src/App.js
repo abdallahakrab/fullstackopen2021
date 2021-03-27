@@ -14,7 +14,7 @@ function App() {
   const [errorColor, setErrorColor] = useState("Green");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/persons").then((res) => {
+    axios.get("/api/persons").then((res) => {
       setContacts(res.data);
     });
   }, []);
