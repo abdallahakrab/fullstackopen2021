@@ -14,7 +14,7 @@ function App() {
   const [errorColor, setErrorColor] = useState("Green");
 
   useEffect(() => {
-    axios.get("/api/persons").then((res) => {
+    axios.get("http://localhost:3001/persons").then((res) => {
       setContacts(res.data);
     });
   }, []);
@@ -43,15 +43,11 @@ function App() {
         service
           .updateNumber(newObject)
           .then((person) => {
-            console.log(person);
-            const newList = contacts.map((contact) => {
-              console.log(contact);
-              console.log(person);
-              return contact.id === person.id ? person : contact;
-            });
+            const newList = contacts.map((contact) =>
+              contact.id === person.id ? person : contact
+            );
             setErrorMessage("Number updated");
             setTimeout(() => setErrorMessage(""), 5000);
-            console.log(newList);
             setContacts(newList);
             setNewName("");
             setNewNumber("");
@@ -78,43 +74,21 @@ function App() {
     };
     service
       .addPerson(contactObject)
-      .then((person) => {
-        setContacts(contacts.concat(person));
-        setNewName("");
-        setNewNumber("");
-        setErrorMessage("Contact added");
-        setTimeout(() => setErrorMessage(""), 5000);
-        //
-        //
-        //
-      })
-      .catch((error) => {
-        const errorMessage = error.response.data.error;
-        setErrorMessage(errorMessage);
-        setErrorColor("Red");
-        setTimeout(() => {
-          setErrorMessage("");
-          setErrorColor("Green");
-        }, 5000);
-      });
-    // });
+      .then((person) => setContacts(contacts.concat(person)));
+
     // setContacts(contacts.concat(contactObject));
+    setNewName("");
+    setNewNumber("");
+    setErrorMessage("Contact added");
+    setTimeout(() => setErrorMessage(""), 5000);
   };
   const onDelete = ({ id, name }) => {
     const answer = window.confirm(` do you really want to delete ${name}?`);
     if (answer) {
-      console.log("here");
-      service
-        .removePerson(id)
-        .then(() => {
-          console.log("newlist");
-
-          const newList = contacts.filter((contact) => contact.id !== id);
-          setContacts(newList);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      service.removePerson(id).then((person) => {
+        const newList = contacts.filter((contact) => contact.id !== id);
+        setContacts(newList);
+      });
     }
   };
   const filteredContacts = contacts.filter((contact) =>
