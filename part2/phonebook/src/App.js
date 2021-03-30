@@ -43,11 +43,15 @@ function App() {
         service
           .updateNumber(newObject)
           .then((person) => {
-            const newList = contacts.map((contact) =>
-              contact.id === person.id ? person : contact
-            );
+            console.log(person);
+            const newList = contacts.map((contact) => {
+              console.log(contact);
+              console.log(person);
+              return contact.id === person.id ? person : contact;
+            });
             setErrorMessage("Number updated");
             setTimeout(() => setErrorMessage(""), 5000);
+            console.log(newList);
             setContacts(newList);
             setNewName("");
             setNewNumber("");
@@ -74,13 +78,27 @@ function App() {
     };
     service
       .addPerson(contactObject)
-      .then((person) => setContacts(contacts.concat(person)));
-
+      .then((person) => {
+        setContacts(contacts.concat(person));
+        setNewName("");
+        setNewNumber("");
+        setErrorMessage("Contact added");
+        setTimeout(() => setErrorMessage(""), 5000);
+        //
+        //
+        //
+      })
+      .catch((error) => {
+        const errorMessage = error.response.data.error;
+        setErrorMessage(errorMessage);
+        setErrorColor("Red");
+        setTimeout(() => {
+          setErrorMessage("");
+          setErrorColor("Green");
+        }, 5000);
+      });
+    // });
     // setContacts(contacts.concat(contactObject));
-    setNewName("");
-    setNewNumber("");
-    setErrorMessage("Contact added");
-    setTimeout(() => setErrorMessage(""), 5000);
   };
   const onDelete = ({ id, name }) => {
     const answer = window.confirm(` do you really want to delete ${name}?`);
