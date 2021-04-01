@@ -1,16 +1,6 @@
 const listHelper = require('../utils/list_helper')
 
-describe('dummy',()=>{
-    test('returns one',()=>{
-        const blogs = []
-        const result = listHelper.dummy(blogs)
-        expect(result).toBe(1)
-    })
-})
-
-
-describe('totalNumberOfLikes',()=>{
-    const listWithOneBlog = [
+  const listWithOneBlog = [
     {
       _id: '5a422aa71b54a676234d17f8',
       title: 'Go To Statement Considered Harmful',
@@ -71,6 +61,18 @@ describe('totalNumberOfLikes',()=>{
     __v: 0
   }  
 ]
+
+describe('dummy',()=>{
+    test('returns one',()=>{
+        const blogs = []
+        const result = listHelper.dummy(blogs)
+        expect(result).toBe(1)
+    })
+})
+
+
+describe('totalNumberOfLikes',()=>{
+  
     test('of empty list is zero',()=>{
         const blogs = []
         const result = listHelper.totalLikes(blogs)
@@ -85,5 +87,29 @@ describe('totalNumberOfLikes',()=>{
     test('when list contains many blogs, equals sum of likes',()=>{
         const result = listHelper.totalLikes(blogs);
         expect(result).toBe(36)
+    })
+})
+
+describe('favoriteBlog',()=>{
+    test('of empty array equal empty object',()=>{
+        expect(listHelper.favoriteBlog([])).toEqual({})
+
+    })
+
+    test('of array with one blog to be that blog',()=>{
+        expect(listHelper.favoriteBlog(listWithOneBlog)).toEqual({
+            title: 'Go To Statement Considered Harmful',
+            author: 'Edsger W. Dijkstra',
+            likes: 5,
+
+        })
+    })
+    test('of array with many blogs',()=>{
+        expect(listHelper.favoriteBlog(blogs)).toEqual({
+            title: "Canonical string reduction",
+            author: "Edsger W. Dijkstra",
+            likes: 12,
+
+        })
     })
 })
