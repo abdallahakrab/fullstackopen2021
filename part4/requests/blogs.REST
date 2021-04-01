@@ -1,0 +1,14 @@
+###
+GET http://localhost:3003/api/blogs
+
+###
+
+POST http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+    "author": "ali ahmed",
+    "title": "My first blog post",
+    "url": "https://myfirsturl.com",
+    "likes": 23
+}
