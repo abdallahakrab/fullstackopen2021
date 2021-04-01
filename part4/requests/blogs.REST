@@ -8,7 +8,7 @@ content-type: application/json
 
 {
     "author": "Ali Omar",
-    "title": "My first blog post",
+    "title": "My second blog post",
     "url": "https://myfirsturl.com",
     "likes": 43
 }
