@@ -7,8 +7,8 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "author": "ali ahmed",
+    "author": "Ali Omar",
     "title": "My first blog post",
     "url": "https://myfirsturl.com",
-    "likes": 23
+    "likes": 43
 }
