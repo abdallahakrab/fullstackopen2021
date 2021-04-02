@@ -113,3 +113,22 @@ describe('favoriteBlog',()=>{
         })
     })
 })
+
+describe('mostBlogs',()=>{
+
+  test('of array with many blogs',()=>{
+    const result = listHelper.mostBlogs(blogs)
+    expect(result).toEqual({ author: 'Robert C. Martin', blogs: 3 })
+  })
+})
+
+
+
+describe('mostLikes', () => {
+  test('of array with many blogs ', () => {
+    const result = listHelper.mostLikes(blogs)
+    expect(result).toEqual({ name: 'Edsger W. Dijkstra', likes: 17 })
+    
+  })
+  
+})
