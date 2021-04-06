@@ -1,4 +1,4 @@
-const Router = require("express");
+const Router = require("express").Router;
 const app = require("../app");
 const Blog = require("../models/blog");
 
@@ -18,6 +18,18 @@ blogsRouter.post("/", async (request, response) => {
 
   const result = await blog.save();
   response.status(201).json(result);
+});
+
+blogsRouter.delete("/:id", async (request, response) => {
+  await Blog.findByIdAndDelete(request.params.id);
+  response.status(204).send("resource deleted");
+});
+
+blogsRouter.patch("/:id", async (request, response) => {
+  await Blog.findByIdAndUpdate(request.params.id, {
+    likes: request.body.likes,
+  });
+  response.status(200).send("likes updated");
 });
 
 module.exports = blogsRouter;

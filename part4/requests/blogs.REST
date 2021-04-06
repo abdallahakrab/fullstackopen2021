@@ -12,3 +12,13 @@ content-type: application/json
     "url": "https://myfirsturl.com",
     "likes": 43
 }
+###
+DELETE  http://localhost:3003/api/blogs/6065ae6b01172222cfb3201c
+
+###
+PATCH  http://localhost:3003/api/blogs/6065b0755ef7c3258cb8ab57
+content-Type: application/json
+
+{
+    "likes": 44
+}
