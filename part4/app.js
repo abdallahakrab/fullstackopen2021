@@ -4,6 +4,7 @@ const cors = require("cors");
 const config = require("./utils/config");
 const BlogRouter = require("./controllers/blogs");
 const UserRouter = require("./controllers/users");
+const LoginRouter = require("./controllers/login");
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl, {
@@ -19,5 +20,6 @@ app.use(cors());
 
 app.use("/api/blogs", BlogRouter);
 app.use("/api/users", UserRouter);
+app.use("/api/login", LoginRouter);
 
 module.exports = app;
