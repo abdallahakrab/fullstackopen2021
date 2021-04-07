@@ -2,10 +2,14 @@ const supertest = require("supertest");
 const app = require("../app");
 const api = supertest(app);
 const Blog = require("../models/blog");
+const User = require("../models/user");
 const intialBlogs = require("../utils/test_helper").intialBlogs;
+const intialUsers = require("../utils/test_helper").intialUsers;
 beforeEach(async () => {
   await Blog.deleteMany({});
   await new Blog(intialBlogs[0]).save();
+  await User.deleteMany({});
+  await new User(intialUsers[0]).save();
 });
 
 test("GET Blogs return correct count of blogs", async () => {
@@ -45,4 +49,43 @@ test("POST BLOG likes missing, default 0", async () => {
   });
   const response = await api.post("/api/blogs").send(newBlog).expect(201);
   expect(response.body.likes).toBe(0);
+});
+
+test("Adding invalid user: Username is not unique", async () => {
+  const newUser = {
+    name: "Mohamed",
+    username: "abdallah326",
+    password: "123456",
+  };
+  const response = await api.post("/api/users").send(newUser).expect(400);
+  expect(response.body.error).toContain("username must be unique");
+});
+test("Adding invalid user: Username less than 3 characters", async () => {
+  const newUser = {
+    name: "Mohamed",
+    username: "ab",
+    password: "123456",
+  };
+  const response = await api.post("/api/users").send(newUser).expect(400);
+  expect(response.body.error).toContain(
+    "username length must be greater than 3"
+  );
+});
+test("Adding invalid user: Missing password", async () => {
+  const newUser = {
+    name: "Mohamed",
+    username: "thisisrightusername",
+  };
+  const response = await api.post("/api/users").send(newUser).expect(400);
+  expect(response.body.error).toContain("must provide a password");
+});
+
+test("Adding invalid user: Password length less than 3", async () => {
+  const newUser = {
+    name: "Mohamed",
+    username: "thisisrightusername",
+    password: "21",
+  };
+  const response = await api.post("/api/users").send(newUser).expect(400);
+  expect(response.body.error).toContain("password min length 3 characters");
 });

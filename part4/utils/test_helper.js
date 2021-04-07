@@ -1,5 +1,5 @@
 const intialBlogs = [
-     {
+  {
     title: "React patterns",
     author: "Michael Chan",
     url: "https://reactpatterns.com/",
@@ -8,7 +8,8 @@ const intialBlogs = [
   {
     title: "Go To Statement Considered Harmful",
     author: "Edsger W. Dijkstra",
-    url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
+    url:
+      "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
     likes: 5,
   },
   {
@@ -20,13 +21,15 @@ const intialBlogs = [
   {
     title: "First class tests",
     author: "Robert C. Martin",
-    url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+    url:
+      "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
     likes: 10,
   },
   {
     title: "TDD harms architecture",
     author: "Robert C. Martin",
-    url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
+    url:
+      "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
     likes: 0,
   },
   {
@@ -34,10 +37,20 @@ const intialBlogs = [
     author: "Robert C. Martin",
     url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
     likes: 2,
-  }  
+  },
+];
 
-]
+const intialUsers = [
+  {
+    name: "Abdallah",
+    username: "abdallah326",
+    passwordHash:
+      "$2b$08$xFBW8V6eHpV/adGdojBe8ukEwYR6VBJi7LWPsrWZtGUUm3RiGn16q",
+  },
+  {},
+];
 
 module.exports = {
-    intialBlogs
-}
+  intialBlogs,
+  intialUsers,
+};

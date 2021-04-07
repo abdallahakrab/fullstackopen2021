@@ -12,16 +12,25 @@ userRouter.get("/", async (req, res) => {
 
 userRouter.post("/", async (req, res) => {
   const user = req.body;
-  console.log(user);
-
+  if (!user.password) {
+    return res.status(400).send({ error: "must provide a password" });
+  }
+  if (user.password.length < 3) {
+    return res.status(400).send({ error: "password min length 3 characters" });
+  }
   const newUser = new User({
     name: user.name,
     username: user.username,
     passwordHash: await bcrypt.hash(user.password, 8),
   });
-  console.log(newUser);
-  const result = await newUser.save();
-  res.status(201).json(result);
+  try {
+    const result = await newUser.save();
+    res.status(201).json(result);
+  } catch (e) {
+    if (e.name === "ValidationError") {
+      return res.status(400).send({ error: e.message });
+    }
+  }
 });
 
 module.exports = userRouter;
