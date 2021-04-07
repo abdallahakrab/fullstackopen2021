@@ -10,8 +10,8 @@ blogsRouter.get("/", async (request, response) => {
 });
 
 blogsRouter.post("/", async (request, response) => {
-  const blog = new Blog(request.body._doc);
-  console.log(request.body._doc);
+  const blog = new Blog(request.body);
+  // console.log(request.body);
   if (!blog.url || !blog.title) {
     return response.status(400).send("error");
   }
