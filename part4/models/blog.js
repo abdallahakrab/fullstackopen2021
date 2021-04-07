@@ -4,12 +4,14 @@ const blogSchema = new mongoose.Schema({
   author: String,
   url: String,
   likes: { type: Number, default: 0 },
-  user: { type: mongoose.Schema.Types.obj, ref: "User" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 blogSchema.set("toJSON", {
   transform: (current, recieved) => {
     recieved.id = current._id;
+    delete recieved._id;
+    delete recieved.__v;
   },
 });
 

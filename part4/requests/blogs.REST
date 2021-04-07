@@ -7,10 +7,11 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "author": "Ali Omar",
+    "author": "Ali Mohamed",
     "title": "My second blog post",
     "url": "https://myfirsturl.com",
-    "likes": 43
+    "likes": 43,
+    "user": "606c30e990c62332a3d845b8"
 }
 ###
 DELETE  http://localhost:3003/api/blogs/6065ae6b01172222cfb3201c

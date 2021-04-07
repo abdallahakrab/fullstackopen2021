@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     minLength: [3, "username length must be greater than 3 "],
   },
   passwordHash: String,
+  blogs: { type: [mongoose.Schema.Types.ObjectId], ref: "Blog" },
 });
 
 userSchema.plugin(uniqueValidator, { message: "username must be unique" });
