@@ -15,7 +15,7 @@ content-type: application/json
 }
 ###
 
-### with token ###
+### with token (beta: user id send in the request) ###
 
 POST http://localhost:3003/api/blogs
 content-type: application/json
@@ -27,6 +27,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
     "url": "https://myfirsturl.com",
     "likes": 43,
     "user": "606c30e990c62332a3d845b8"
+}
+### with token , 
+
+POST http://localhost:3003/api/blogs
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNmMzMGU5OTBjNjIzMzJhM2Q4NDViOCIsInVzZXJuYW1lIjoiYWszMjYiLCJpYXQiOjE2MTc5MDY5Njl9.KYRodYFaQXG3sxYnbMJ_kUGlztsqHMtRvefexBLZS8A
+
+{
+    "author": "Ali Doll",
+    "title": "My temp blog post",
+    "url": "https://myfirsturl.com",
+    "likes": 43
 }
 ###
 DELETE  http://localhost:3003/api/blogs/6065ae6b01172222cfb3201c
