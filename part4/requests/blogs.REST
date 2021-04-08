@@ -1,10 +1,25 @@
 ###
 GET http://localhost:3003/api/blogs
 
-###
+### Without token
 
 POST http://localhost:3003/api/blogs
 content-type: application/json
+
+{
+    "author": "Ali Mohamed",
+    "title": "My second blog post",
+    "url": "https://myfirsturl.com",
+    "likes": 43,
+    "user": "606c30e990c62332a3d845b8"
+}
+###
+
+### with token ###
+
+POST http://localhost:3003/api/blogs
+content-type: application/json
+Authorization: "Bearer 
 
 {
     "author": "Ali Mohamed",
