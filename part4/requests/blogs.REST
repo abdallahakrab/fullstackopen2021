@@ -19,7 +19,7 @@ content-type: application/json
 
 POST http://localhost:3003/api/blogs
 content-type: application/json
-Authorization: "Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.drt_po6bHhDOF_FJEHTrK-KD8OGjseJZpHwHIgsnoTM
 
 {
     "author": "Ali Mohamed",
