@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const config = require("./config");
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get("authorization");
-
   request.token =
     authorization && authorization.toLowerCase().startsWith("bearer ")
       ? authorization.substring(7)
@@ -15,9 +14,10 @@ const userExtractor = async (request, response, next) => {
   const token = request.token;
   let decodedToken = null;
   try {
+    // console.log(token);
     decodedToken = jwt.verify(token, config.SECRET);
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     return response.status(401).json({ error: "token missing or invalid DT" });
   }
   if (!token || !decodedToken.id) {
