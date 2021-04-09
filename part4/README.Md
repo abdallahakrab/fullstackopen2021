@@ -1,1 +1,1 @@
-# 12hmins
+# 12h 30mins

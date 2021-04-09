@@ -32,10 +32,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 
 POST http://localhost:3003/api/blogs
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNmMzMGU5OTBjNjIzMzJhM2Q4NDViOCIsInVzZXJuYW1lIjoiYWszMjYiLCJpYXQiOjE2MTc5MDY5Njl9.KYRodYFaQXG3sxYnbMJ_kUGlztsqHMtRvefexBLZS8A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNmMzMGU5OTBjNjIzMzJhM2Q4NDViOCIsInVzZXJuYW1lIjoiYWszMjYiLCJpYXQiOjE2MTc5NzExNzh9.V2ezsze82862AQnLomeBOtjS0v4T7bnKYETrWtXS_d0
+
 
 {
-    "author": "Ali Doll",
+    "author": "Mohamed Ahmed",
     "title": "My temp blog post",
     "url": "https://myfirsturl.com",
     "likes": 43

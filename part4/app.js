@@ -5,7 +5,7 @@ const config = require("./utils/config");
 const BlogRouter = require("./controllers/blogs");
 const UserRouter = require("./controllers/users");
 const LoginRouter = require("./controllers/login");
-const { tokenExtractor } = require("./utils/middleware");
+const { tokenExtractor, userExtractor } = require("./utils/middleware");
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl, {
