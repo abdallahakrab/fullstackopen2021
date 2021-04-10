@@ -9,8 +9,9 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+  useEffect(async () => {
+    const blogs = await blogService.getAll();
+    setBlogs(blogs);
   }, []);
 
   const handleLogin = async (e) => {
