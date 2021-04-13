@@ -13,12 +13,15 @@ const App = () => {
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
 
+  const [notification, setNotification] = useState("");
+
   useEffect(() => {
     async function fetchData() {
       const blogs = await blogService.getAll();
       setBlogs(blogs);
       const currentUser = localStorage.getItem("user");
       setUser(JSON.parse(currentUser));
+      blogService.setToken(JSON.parse(currentUser).token);
     }
     fetchData();
   }, []);
@@ -36,6 +39,10 @@ const App = () => {
       blogService.setToken(userR.token);
     } catch (e) {
       console.error(e);
+      setNotification("Invalid username or password");
+      setTimeout(() => {
+        setNotification("");
+      }, 5000);
     }
   };
 
@@ -49,6 +56,10 @@ const App = () => {
     try {
       const blogR = await blogService.add(newBlog);
       setBlogs(blogs.concat(blogR));
+      setNotification(`new blog ${blogR.title} by ${blogR.author} added`);
+      setTimeout(() => {
+        setNotification("");
+      }, 5000);
     } catch (error) {
       console.log(error);
     }
@@ -127,6 +138,7 @@ const App = () => {
     return (
       <div>
         <h2>Blogs</h2>
+        {notification}
         {LoginForm()}
       </div>
     );
@@ -135,6 +147,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
+      {notification}
       <p>{user.name} logged in </p>
       <button
         onClick={() => {
