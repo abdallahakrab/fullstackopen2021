@@ -11,10 +11,6 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
-
   const [notification, setNotification] = useState("");
 
   const blogFormRef = useRef();
@@ -50,8 +46,7 @@ const App = () => {
     }
   };
 
-  const handleAddBlog = async (e) => {
-    e.preventDefault();
+  const createBlog = async ({ title, author, url }) => {
     const newBlog = {
       title,
       author,
@@ -126,15 +121,7 @@ const App = () => {
         logout
       </button>
       <Toggable buttonText="add new blog" ref={blogFormRef}>
-        <BlogForm
-          title={title}
-          author={author}
-          url={url}
-          setTitle={setTitle}
-          setUrl={setUrl}
-          setAuthor={setAuthor}
-          handleAddBlog={handleAddBlog}
-        />
+        <BlogForm createBlog={createBlog} />
       </Toggable>
 
       {user && blogs.map((blog) => <Blog key={blog.id} blog={blog} />)}
