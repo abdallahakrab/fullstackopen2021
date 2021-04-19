@@ -17,5 +17,9 @@ const add = async (data) => {
   const response = await axios.post(baseUrl, data, config);
   return response.data;
 };
+const like = async ({ likes, id }) => {
+  const response = await axios.patch(`${baseUrl}/${id}`, { likes });
+  return response.data;
+};
 
-export default { setToken, getAll, add };
+export default { setToken, getAll, add, like };

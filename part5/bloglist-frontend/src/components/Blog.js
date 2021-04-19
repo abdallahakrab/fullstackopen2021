@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-const Blog = ({ blog }) => {
+const Blog = ({ blog, likeBlog }) => {
   const [toggleDetails, setToggleDetails] = useState(false);
+
+  const handleLike = () => {
+    // e.preventDefault();
+    console.log(blog);
+    likeBlog({ id: blog.id, likes: blog.likes + 1 });
+  };
   return (
     <ul style={blogStyle}>
       <li>
@@ -18,7 +24,13 @@ const Blog = ({ blog }) => {
           <li>{blog.url}</li>{" "}
           <li>
             {`likes ${blog.likes}`}
-            <button>like</button>
+            <button
+              onClick={() => {
+                handleLike();
+              }}
+            >
+              like
+            </button>
           </li>
           <li>{blog.author}</li>
         </div>

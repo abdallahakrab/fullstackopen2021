@@ -66,6 +66,24 @@ const App = () => {
     }
   };
 
+  const likeBlog = async ({ id, likes }) => {
+    try {
+      const response = await blogService.like({ likes, id });
+      const blog = blogs.find((blog) => blog.id === id);
+      const updatedBlog = { ...blog, likes };
+      const newBlogs = blogs.map((blog) => {
+        if (blog.id === id) {
+          return updatedBlog;
+        }
+        return blog;
+      });
+      setBlogs(newBlogs);
+      console.log(response);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const LoginForm = () => (
     <div>
       <form method="POST">
@@ -124,7 +142,10 @@ const App = () => {
         <BlogForm createBlog={createBlog} />
       </Toggable>
 
-      {user && blogs.map((blog) => <Blog key={blog.id} blog={blog} />)}
+      {user &&
+        blogs.map((blog) => (
+          <Blog likeBlog={likeBlog} key={blog.id} blog={blog} />
+        ))}
     </div>
   );
 };
