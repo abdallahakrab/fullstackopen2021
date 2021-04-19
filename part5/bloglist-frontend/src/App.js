@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Blog from "./components/Blog";
+import BlogForm from "./components/BlogForm";
+import Toggable from "./components/Toggable";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 
@@ -14,6 +16,8 @@ const App = () => {
   const [url, setUrl] = useState("");
 
   const [notification, setNotification] = useState("");
+
+  const blogFormRef = useRef();
 
   useEffect(() => {
     async function fetchData() {
@@ -60,6 +64,8 @@ const App = () => {
       setTimeout(() => {
         setNotification("");
       }, 5000);
+      // TODO: close newblog form
+      blogFormRef.current.setVisibility();
     } catch (error) {
       console.log(error);
     }
@@ -94,46 +100,7 @@ const App = () => {
     </div>
   );
 
-  const BlogForm = () => (
-    <div>
-      <h1>create new</h1>
-      <form method="POST">
-        <label htmlFor="title">title</label>
-        <input
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          type="text"
-          name="title"
-          id="title"
-        />
-        <label htmlFor="author">author</label>
-        <input
-          value={author}
-          onChange={(e) => {
-            setAuthor(e.target.value);
-          }}
-          type="text"
-          name="author"
-          id="author"
-        />
-        <label htmlFor="url">url</label>
-        <input
-          value={url}
-          onChange={(e) => {
-            setUrl(e.target.value);
-          }}
-          type="text"
-          name="url"
-          id="url"
-        />
-        <button onClick={handleAddBlog} type="submit">
-          add
-        </button>
-      </form>
-    </div>
-  );
+  //blog form def
   if (user === null) {
     return (
       <div>
@@ -158,7 +125,17 @@ const App = () => {
       >
         logout
       </button>
-      {BlogForm()}
+      <Toggable buttonText="add new blog" ref={blogFormRef}>
+        <BlogForm
+          title={title}
+          author={author}
+          url={url}
+          setTitle={setTitle}
+          setUrl={setUrl}
+          setAuthor={setAuthor}
+          handleAddBlog={handleAddBlog}
+        />
+      </Toggable>
 
       {user && blogs.map((blog) => <Blog key={blog.id} blog={blog} />)}
     </div>
