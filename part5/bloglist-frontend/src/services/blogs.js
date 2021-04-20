@@ -22,4 +22,11 @@ const like = async ({ likes, id }) => {
   return response.data;
 };
 
-export default { setToken, getAll, add, like };
+const remove = async ({ id }) => {
+  const response = await axios.delete(`${baseUrl}/${id}`, {
+    headers: { authorization: token },
+  });
+  return response.data;
+};
+
+export default { setToken, getAll, add, like, remove };

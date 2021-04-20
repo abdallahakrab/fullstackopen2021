@@ -84,6 +84,19 @@ const App = () => {
     }
   };
 
+  const removeBlog = async (id) => {
+    try {
+      const response = await blogService.remove({ id });
+      // state
+      console.log(response);
+      const updatedBlogs = blogs.filter((blog) => blog.id !== id);
+      console.log(updatedBlogs);
+      setBlogs(updatedBlogs);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const LoginForm = () => (
     <div>
       <form method="POST">
@@ -146,7 +159,13 @@ const App = () => {
         blogs
           .sort((a, b) => b.likes - a.likes)
           .map((blog) => (
-            <Blog likeBlog={likeBlog} key={blog.id} blog={blog} />
+            <Blog
+              removeBlog={removeBlog}
+              likeBlog={likeBlog}
+              key={blog.id}
+              blog={blog}
+              username={user.username}
+            />
           ))}
     </div>
   );
