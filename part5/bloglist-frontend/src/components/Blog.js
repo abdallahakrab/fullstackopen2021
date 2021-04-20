@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 const Blog = ({ blog, username, likeBlog, removeBlog }) => {
   const [toggleDetails, setToggleDetails] = useState(false);
 
@@ -29,7 +30,7 @@ const Blog = ({ blog, username, likeBlog, removeBlog }) => {
       </li>
       {toggleDetails ? (
         <div>
-          <li>{blog.url}</li>{" "}
+          <li>{blog.url}</li>
           <li>
             {`likes ${blog.likes}`}
             <button
@@ -52,6 +53,13 @@ const Blog = ({ blog, username, likeBlog, removeBlog }) => {
       )}
     </ul>
   );
+};
+
+Blog.PropTypes = {
+  blog: PropTypes.object.isRequired,
+  username: PropTypes.string.isRequired,
+  likeBlog: PropTypes.func.isRequired,
+  removeBlog: PropTypes.func.isRequired,
 };
 export default Blog;
 
