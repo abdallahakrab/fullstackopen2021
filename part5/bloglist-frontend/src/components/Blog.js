@@ -34,6 +34,7 @@ const Blog = ({ blog, username, likeBlog, removeBlog }) => {
           <li>
             {`likes ${blog.likes}`}
             <button
+              id="like-button"
               onClick={() => {
                 handleLike();
               }}
