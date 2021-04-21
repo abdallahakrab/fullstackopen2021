@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { React, useState } from "react";
 
 const BlogForm = ({ createBlog }) => {
   const [title, setTitle] = useState("");
@@ -44,7 +44,7 @@ const BlogForm = ({ createBlog }) => {
           name="url"
           id="url"
         />
-        <button onClick={handleAddBlog} type="submit">
+        <button id="add-button" onClick={handleAddBlog} type="submit">
           add
         </button>
       </form>
