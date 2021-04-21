@@ -17,9 +17,9 @@ const Blog = ({ blog, username, likeBlog, removeBlog }) => {
     }
   };
   return (
-    <ul style={blogStyle}>
+    <ul className="blog" style={blogStyle}>
       <li>
-        {blog.title}
+        {blog.title} {blog.author}
         <button
           onClick={() => {
             setToggleDetails(!toggleDetails);
@@ -55,7 +55,7 @@ const Blog = ({ blog, username, likeBlog, removeBlog }) => {
   );
 };
 
-Blog.PropTypes = {
+Blog.propTypes = {
   blog: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   likeBlog: PropTypes.func.isRequired,
