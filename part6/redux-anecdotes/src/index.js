@@ -1,11 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import App from "./App";
-import reducer from "./reducers/anecdoteReducer";
+import anecdoteReducer from "./reducers/anecdoteReducer";
+import messageReducer from "./reducers/messageReducer";
 
-const store = createStore(reducer);
+const reducer = combineReducers({
+  anecdote: anecdoteReducer,
+  message: messageReducer,
+});
+
+const store = createStore(reducer, composeWithDevTools());
 
 ReactDOM.render(
   <Provider store={store}>
