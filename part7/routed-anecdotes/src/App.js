@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
+  useRouteMatch,
+} from "react-router-dom";
 
 const Menu = () => {
   const padding = {
@@ -26,11 +31,23 @@ const AnecdoteList = ({ anecdotes }) => (
     <h2>Anecdotes</h2>
     <ul>
       {anecdotes.map((anecdote) => (
-        <li key={anecdote.id}>{anecdote.content}</li>
+        <Link to={`anecdotes/${anecdote.id}`}>
+          <li key={anecdote.id}>{anecdote.content}</li>
+        </Link>
       ))}
     </ul>
   </div>
 );
+
+const Anecdote = ({ anecdote }) => {
+  return (
+    <div>
+      <h1>{anecdote.content}</h1>
+      <p>has {anecdote.votes} votes</p>
+      <p>for more info see {anecdote.info}</p>
+    </div>
+  );
+};
 
 const About = () => (
   <div>
@@ -155,24 +172,27 @@ const App = () => {
     setAnecdotes(anecdotes.map((a) => (a.id === id ? voted : a)));
   };
 
+  const match = useRouteMatch("/anecdotes/:id");
+  const anecdote = match ? anecdoteById(match.params.id) : null;
   return (
     <div>
-      <Router>
-        <h1>Software anecdotes</h1>
-        <Menu />
-        <Switch>
-          <Route path="/create">
-            <CreateNew addNew={addNew} />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">
-            <AnecdoteList anecdotes={anecdotes} />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
+      <h1>Software anecdotes</h1>
+      <Menu />
+      <Switch>
+        <Route path="/anecdotes/:id">
+          <Anecdote anecdote={anecdote} />
+        </Route>
+        <Route path="/create">
+          <CreateNew addNew={addNew} />
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/">
+          <AnecdoteList anecdotes={anecdotes} />
+        </Route>
+      </Switch>
+      <Footer />
     </div>
   );
 };
