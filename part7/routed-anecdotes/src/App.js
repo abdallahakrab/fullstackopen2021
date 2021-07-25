@@ -4,6 +4,7 @@ import {
   Link,
   Route,
   Switch,
+  useHistory,
   useRouteMatch,
 } from "react-router-dom";
 
@@ -89,7 +90,7 @@ const CreateNew = (props) => {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [info, setInfo] = useState("");
-
+  const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
     props.addNew({
@@ -98,6 +99,11 @@ const CreateNew = (props) => {
       info,
       votes: 0,
     });
+    history.push("/");
+    props.setNotification(`a new anecdote: ${content} `);
+    setTimeout(() => {
+      props.setNotification("");
+    }, 10000);
   };
 
   return (
@@ -178,12 +184,13 @@ const App = () => {
     <div>
       <h1>Software anecdotes</h1>
       <Menu />
+      {notification}
       <Switch>
         <Route path="/anecdotes/:id">
           <Anecdote anecdote={anecdote} />
         </Route>
         <Route path="/create">
-          <CreateNew addNew={addNew} />
+          <CreateNew setNotification={setNotification} addNew={addNew} />
         </Route>
         <Route path="/about">
           <About />
