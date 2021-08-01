@@ -4,7 +4,7 @@
   "main": "",
   "license": "MIT",
   "scripts":{
-  "ts-node":"ts-ndoe",
+  "ts-node":"ts-node",
   "CalculateBmi": "ts-node bmiCalculator"
   },
   "dependencies": {
