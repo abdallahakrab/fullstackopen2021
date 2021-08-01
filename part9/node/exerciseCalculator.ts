@@ -59,5 +59,40 @@ const calculateExercises = (
     average,
   };
 };
+interface inputValues {
+  target: Rating;
+  arr: Array<number>;
+}
 
-console.log(calculateExercises([3, 5, 2, 4.5, 5, 3, 1], 2));
+const getInputec = (): inputValues => {
+  const len = process.argv.length;
+  if (len < 4) {
+    throw new Error("few arguments");
+  }
+  const targetInt: number = parseInt(process.argv[2]);
+  if (targetInt < 1 || targetInt > 3) {
+    throw new Error("target must be in range 1-3");
+  }
+  if (isNaN(targetInt)) {
+    throw new Error("only numbers are accepted");
+  }
+  const target: any = targetInt;
+  let arr: Array<number> = [];
+  for (let index = 3; index < len; index++) {
+    const element = parseInt(process.argv[index]);
+    if (isNaN(element)) {
+      throw new Error("only numbers are accepeted");
+    }
+    arr.push(element);
+  }
+  return {
+    target,
+    arr,
+  };
+};
+try {
+  const input = getInputec();
+  console.log(calculateExercises(input.arr, input.target));
+} catch (error) {
+  console.log(error.message);
+}

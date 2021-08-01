@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts":{
   "ts-node":"ts-node",
-  "CalculateBmi": "ts-node bmiCalculator"
+  "CalculateBmi": "ts-node bmiCalculator",
+  "ExerciseCalculator": "ts-node exerciseCalculator"
   },
   "dependencies": {
     "typescript": "^4.3.5"
