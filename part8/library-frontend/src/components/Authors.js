@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
+import BirthyearForm  from "./BirthyearForm";
 const ALL_AUTHORS = gql`
   query {
     allAuthors {
@@ -45,6 +46,7 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
+      <BirthyearForm />
     </div>
   );
 };
