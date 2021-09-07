@@ -1,5 +1,6 @@
 import { gql,useMutation } from '@apollo/client';
 import React, { useState } from 'react';
+import Select from "react-select";
 const SET_AUTHOR_BIRTHYEAR = gql`
 mutation editAuthor($name: String!, $date: Int!) {
   editAuthor(name: $name, setBornTo: $date) {
@@ -10,10 +11,11 @@ mutation editAuthor($name: String!, $date: Int!) {
   }
 `;
 
-function BirthyearForm() {
+function BirthyearForm({authors}) {
     const [name,setName] = useState("");
     const [date, setDate] = useState(null);
     const [setAuthorBirthDate] = useMutation(SET_AUTHOR_BIRTHYEAR )
+    const options = authors.map(author=> ({value: author.name, label: author.name}));
     return (
         <div>
             <h1>Set Birthyear</h1>
@@ -21,7 +23,7 @@ function BirthyearForm() {
                 e.preventDefault();
                 
                 const response = await setAuthorBirthDate({variables:{
-                    name,
+                    name: name.value,
                     date
                 }})
                 setName("");
@@ -29,8 +31,10 @@ function BirthyearForm() {
 
             }}>
                 <label htmlFor="name">name</label>
-                <input type="text" name="name" id="name" value={name} onChange={(e)=>{setName(e.target.value)}} />
+
+                <Select options={options} value={name} onChange={setName}    />
                 <label htmlFor="name">born</label>
+
                 <input type="number" name="date" id="date" value={date} onChange={(e)=>{setDate(parseInt(e.target.value))}} />
                 <input type="submit" value="update author"  />
             </form>
