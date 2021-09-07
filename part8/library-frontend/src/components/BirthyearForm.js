@@ -25,7 +25,6 @@ function BirthyearForm() {
                     name,
                     date
                 }})
-                console.log(response);
                 setName("");
                 setDate("");
 

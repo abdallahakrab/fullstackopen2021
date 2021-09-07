@@ -1,24 +1,6 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-// # mutation addBookMutation(
-//   #   $addBookTitle: String!
-//   #   $addBookAuthor: String!
-//   #   $addBookGenres: [String]!
-//   #   $addBookPublished: Int
-//   # ) {
-//   #   addBook(
-//   #     title: $addBookTitle
-//   #     author: $addBookAuthor
-//   #     genres: $addBookGenres
-//   #     published: $addBookPublished
-//   #   ) {
-//   #     title
-//   #     id
-//   #     author
-//   #     published
-//   #     genres
-//   #   }
-//   # }
+
 const ADD_BOOK = gql`
   mutation AddBookMutation(
     $title: String!
@@ -63,7 +45,6 @@ const NewBook = (props) => {
       },
     });
 
-    console.log(response);
     setTitle("");
     setPublished("");
     setAuhtor("");
