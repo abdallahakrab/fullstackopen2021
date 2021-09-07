@@ -1,7 +1,6 @@
 import { gql,useMutation } from '@apollo/client';
 import React, { useState } from 'react';
-
-const ME = gql`
+const SET_AUTHOR_BIRTHYEAR = gql`
 mutation editAuthor($name: String!, $date: Int!) {
   editAuthor(name: $name, setBornTo: $date) {
     name
@@ -14,7 +13,7 @@ mutation editAuthor($name: String!, $date: Int!) {
 function BirthyearForm() {
     const [name,setName] = useState("");
     const [date, setDate] = useState(null);
-    const [setAuthorBirthDate] = useMutation(ME)
+    const [setAuthorBirthDate] = useMutation(SET_AUTHOR_BIRTHYEAR )
     return (
         <div>
             <h1>Set Birthyear</h1>
