@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "NODE_ENV=TEST jest --verbose"
+    "test": "NODE_ENV=TEST jest --verbose",
+    "start:test": "NODE_ENV=TEST node index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
